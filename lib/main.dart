@@ -1,14 +1,16 @@
-import 'screens/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:uts_ewallet/splash.dart';
 
-void main() =>runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home()
+      home: Splash()
     );
   }
 }
