@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TopUp extends StatefulWidget {
-  final Function(double) onTopUp; // callback dari HomeScreen
+  final Function(double) onTopUp; 
 
   const TopUp({super.key, required this.onTopUp});
 
   @override
   State<TopUp> createState() => _TopUpState();
 }
-
 class _TopUpState extends State<TopUp> {
   final TextEditingController amountController = TextEditingController();
 
@@ -35,7 +34,6 @@ class _TopUpState extends State<TopUp> {
             if (amountController.text.isNotEmpty) {
               double amount = double.parse(amountController.text);
 
-              // panggil callback biar saldo di HomeScreen nambah
               widget.onTopUp(amount);
 
               Navigator.pop(context);
