@@ -11,19 +11,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double saldo = 0;
-  final formatCurrency = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ');
+  final formatCurrency = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
 
   void _topUp(double amount) {
     setState(() {
       saldo += amount;
     });
-  }
-
-  void _showTopUpDialog() {
-    showDialog(
-      context: context,
-      builder: (_) => TopUp(onTopUp: _topUp),
-    );
   }
 
   @override
@@ -33,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Header dengan saldo
             Container(
               padding: const EdgeInsets.only(
                 top: 50,
@@ -41,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 30,
               ),
               decoration: const BoxDecoration(
-                color: Colors.lightBlue,
+                color: Color(0xff108489),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
@@ -65,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 25),
 
+                  // Card saldo
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -100,14 +99,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ElevatedButton.icon(
-                              onPressed: _showTopUpDialog,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TopUp(
+                                      onTopUp: (amount, phone) {
+                                        _topUp(amount);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
                               icon: const Icon(Icons.add),
                               label: const Text(
                                 "Top Up",
                                 style: TextStyle(color: Colors.white),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.lightBlue,
+                                backgroundColor: Color(0xff108489),
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -119,8 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               icon: const Icon(Icons.send),
                               label: const Text("Transfer"),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.lightBlue,
-                                side: const BorderSide(color: Colors.lightBlue),
+                                foregroundColor: Color(0xff108489),
+                                side: const BorderSide(
+                                  color: Color(0xff108489),
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -137,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 20),
 
+            // Menu grid
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GridView.count(
@@ -160,17 +173,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _menuItem(IconData icon, String title) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 28,
-          backgroundColor: Colors.lightBlue.withOpacity(0.1),
-          child: Icon(icon, color: Colors.lightBlue, size: 28),
-        ),
-        const SizedBox(height: 6),
-        Text(title, style: const TextStyle(fontSize: 12)),
-      ],
+    return InkWell(
+      onTap: () {
+        if (title == "Top Up") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TopUp(
+                onTopUp: (amount, phone) {
+                  _topUp(amount);
+                },
+              ),
+            ),
+          );
+        }
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: Color(0xff108489).withOpacity(0.1),
+            child: Icon(icon, color: Color(0xff108489), size: 28),
+          ),
+          const SizedBox(height: 6),
+          Text(title, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
     );
   }
 }
