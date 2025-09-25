@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'TopUp.dart';
+import 'transfer_file.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (_) => TopUp(onTopUp: _topUp),
     );
+  }
+
+  void _updateSaldo(double newSaldo) {
+    setState(() {
+      saldo = newSaldo;
+    });
   }
 
   @override
@@ -114,18 +121,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            OutlinedButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.send),
-                              label: const Text("Transfer"),
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.lightBlue,
-                                side: const BorderSide(color: Colors.lightBlue),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                            ),
+ElevatedButton.icon(
+  onPressed: () {
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (_) => TransferScreen(
+      saldo: saldo,
+      onTransfer: _updateSaldo,
+    ),
+  ),
+);
+  },
+  icon: const Icon(Icons.send),
+  label: const Text("Transfer", style: TextStyle(color: Colors.white)),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.lightBlue,
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  ),
+),
                           ],
                         ),
                       ],
