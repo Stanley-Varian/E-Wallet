@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TopUp extends StatefulWidget {
-  final Function(double, String) onTopUp;
+  final Function(double) onTopUp;
 
   const TopUp({super.key, required this.onTopUp});
 
@@ -29,7 +29,7 @@ class _TopUpState extends State<TopUp> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Input Nomor HP
+
             TextField(
               controller: phoneController,
               decoration: const InputDecoration(
@@ -40,7 +40,7 @@ class _TopUpState extends State<TopUp> {
             ),
             const SizedBox(height: 20),
 
-            // Input Nominal
+
             TextField(
               controller: amountController,
               decoration: const InputDecoration(
@@ -51,7 +51,7 @@ class _TopUpState extends State<TopUp> {
             ),
             const SizedBox(height: 20),
 
-            // Rekomendasi Nominal (KE BAWAH)
+
             Text(
               "Rekomendasi Nominal",
               style: Theme.of(context).textTheme.titleMedium,
@@ -85,7 +85,7 @@ class _TopUpState extends State<TopUp> {
 
             const Spacer(),
 
-            // Tombol Konfirmasi
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -94,7 +94,7 @@ class _TopUpState extends State<TopUp> {
                   final amount = double.tryParse(amountController.text) ?? 0;
 
                   if (phone.isNotEmpty && amount > 0) {
-                    widget.onTopUp(amount, phone);
+                    widget.onTopUp(amount);
                     Navigator.pop(context);
                   }
                 },

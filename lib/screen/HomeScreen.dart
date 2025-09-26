@@ -24,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
   void _showTopUpDialog() {
     showDialog(
       context: context,
@@ -38,8 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header dengan saldo
             Container(
               padding: const EdgeInsets.only(
                 top: 50,
@@ -79,8 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 25),
-
-                  // Card saldo
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -121,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => TopUp(
-                                      onTopUp: (amount, phone) {
+                                      onTopUp: (amount) {
                                         _topUp(amount);
                                       },
                                     ),
@@ -142,29 +136,31 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
 
-ElevatedButton.icon(
-  onPressed: () {
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (_) => TransferScreen(
-      saldo: saldo,
-      onTransfer: _updateSaldo,
-    ),
-  ),
-);
-  },
-  icon: const Icon(Icons.send),
-  label: const Text("Transfer", style: TextStyle(color: Colors.white)),
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.lightBlue,
-    foregroundColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
-  ),
-),
-
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => TransferScreen(
+                                      saldo: saldo,
+                                      onTransfer: _updateSaldo,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.send),
+                              label: const Text(
+                                "Transfer",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff108489),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -176,7 +172,6 @@ Navigator.push(
 
             const SizedBox(height: 20),
 
-            // Menu grid
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GridView.count(
@@ -207,7 +202,7 @@ Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => TopUp(
-                onTopUp: (amount, phone) {
+                onTopUp: (amount) {
                   _topUp(amount);
                 },
               ),
